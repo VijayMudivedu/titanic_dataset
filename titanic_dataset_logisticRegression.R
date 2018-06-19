@@ -1,3 +1,5 @@
+remove(list = ls())
+
 library(tidyverse)
 library(caret)
 library(Information)
@@ -9,7 +11,7 @@ library(class)
 #install.packages("class")
 #install.packages("VIM")
 library(VIM)
-remove(list = ls())
+
 
 train_df <- read.csv(file = "train.csv",stringsAsFactors = F)
 test_df <- read.csv(file = "test.csv",stringsAsFactors = F)
@@ -494,10 +496,15 @@ plot(perf_titanic, main = paste0( "KS Statistic = ",round(ks_statistic*100,2),"%
 # Predicting the test dataset
 #-----------------------------
 
-pred_test_data <- predict(object = final_model,newdata = test_df_dummy,type = "response")
+prob_titanic_test_data <- predict(object = final_model,newdata = test_df_dummy,type = "response")
 
+# If the test_data has probability of cutoff is greater than the passenger survived 
+Survives_test_data <- ifelse(prob_titanic_test_data >= cutoff_probability, 1 , 0)
 
-predicted_test <- data.frame(Passengerid = test_df$PassengerId, Survived_Probability = pred_test_data)
+predicted_test <- data.frame(Passengerid = test_df$PassengerId, 
+                             Survived = Survives_test_data)#,Survived_Probability = prob_titanic_test_data)
+
+write.csv(predicted_test,file = "survived_prediction.csv")
 
 head(predicted_test)
 View(pred_test)

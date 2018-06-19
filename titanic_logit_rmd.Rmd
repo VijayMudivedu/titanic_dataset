@@ -1,0 +1,43 @@
+---
+title: "Titanic_dataset_logit"
+author: "Vijay Mudivedu"
+date: '2018-06-19'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Predict the survivors in the test dataset using the data in the training dataset
+
+
+```{r include=FALSE}
+
+library(tidyverse)
+library(caret)
+library(Information)
+library(e1071)
+library(ROCR)
+library(MASS)
+library(car)
+library(class)
+#install.packages("class")
+#install.packages("VIM")
+library(VIM)
+```
+
+
+## R Markdown
+
+
+```{r cars}
+
+```
+
+## Including Plots
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
